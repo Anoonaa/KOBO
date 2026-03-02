@@ -809,7 +809,7 @@ The **`TransactionLedger`** table is the most likely to contain dirty data after
 ┌─────┬───────────────────┬──────────────────────┬──────────────────────────┐
 │  1  │ Wallets           │ UPDATE Balance       │ Low (first operation)    │
 ├─────┼───────────────────┼──────────────────────┼──────────────────────────┤
-│  2  │ TransactionLedger │ INSERT new record    │ [!] HIGH (middle step)    │
+│  2  │ TransactionLedger │ INSERT new record    │ [WARNING] HIGH (middle step) │
 │     │                   │ Status: 'Completed'  │                          │
 ├─────┼───────────────────┼──────────────────────┼──────────────────────────┤
 │  3  │ DigitalVouchers   │ INSERT voucher       │ Medium (last step)       │
@@ -985,7 +985,7 @@ WHERE ProcessingStatus = 'Processing'
  K  ────────┼──────────┼──────────┼──────────┼──────────┤
  E  Low     │          │          │          │          │
  L  ────────┴──────────┴──────────┴──────────┴──────────┘
- I           [OK] Accept    [!!] Monitor  [!!!] Mitigate  [!!!!] Urgent
+ I           [ACCEPT]       [MONITOR]     [MITIGATE]      [URGENT]
  H
  O
  O
