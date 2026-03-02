@@ -29,6 +29,7 @@ let pool;
 async function getPool() {
     if (!pool) {
         pool = await sql.connect(dbConfig);
+        pool.on('error', () => { pool = null; });
     }
     return pool;
 }
