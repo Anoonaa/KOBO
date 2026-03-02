@@ -36,7 +36,7 @@
 
 Kobo Fintech is a simulated digital distribution platform designed for Quality Engineering coursework. The system models a real-world fintech operation where users hold digital wallets, purchase airtime and utility products, and receive digital vouchers.
 
-This project provides students with a fully functional backend system against which they can practice:
+This project provides students with a fully functional backend system against which they can work on:
 
 - Database verification and data integrity testing
 - REST API functional testing using Postman
@@ -280,4 +280,5 @@ KOBO/
 <p align="center">
   <img src="https://img.shields.io/badge/Built_for-Quality_Engineering_Students-0066CC?style=for-the-badge" alt="Built for QE Students" />
 </p>
+
 
