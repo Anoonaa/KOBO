@@ -1,4 +1,4 @@
-# Guide 3 -- Quality Engineering Exercises
+# Guide 3 - Quality Engineering Exercises
 
 <p align="center">
   <img src="https://img.shields.io/badge/Duration-60_min-blue?style=for-the-badge" alt="Duration: 60 min" />
@@ -23,11 +23,11 @@ In this guide you will validate the Kobo Fintech API through functional testing,
 
 ---
 
-## Task 2 -- API Functional Validation
+## Task 2 - API Functional Validation
 
 In this section you will test each API endpoint to verify it behaves correctly under normal conditions, edge cases, and error scenarios.
 
-### 2.1 -- Standard Validation
+### 2.1 - Standard Validation
 
 Use Swagger UI to test each endpoint below. For every test, record the **HTTP status code** and a summary of the **response body**.
 
@@ -53,7 +53,7 @@ Use Swagger UI to test each endpoint below. For every test, record the **HTTP st
 4. **Left-click** **Execute**.
 5. Record the status code and response in a table for your submission.
 
-#### POST Endpoint -- Successful Issuance
+#### POST Endpoint - Successful Issuance
 
 1. Expand **POST /api/v1/distribution/issue-voucher**.
 2. **Left-click** **Try it out**.
@@ -71,7 +71,7 @@ Use Swagger UI to test each endpoint below. For every test, record the **HTTP st
 5. Confirm the response has status `201` and includes a `pin` and `status: "SUCCESS"`.
 6. Note the wallet balance before and after by using **GET /api/v1/wallets/1**. Confirm the balance decreased by R10.00.
 
-#### POST Endpoint -- Missing Fields
+#### POST Endpoint - Missing Fields
 
 Test each of the following request bodies. Record the status code and error message for each.
 
@@ -84,11 +84,11 @@ Test each of the following request bodies. Record the status code and error mess
 
 ---
 
-### 2.2 -- Business Logic Testing
+### 2.2 - Business Logic Testing
 
 These tests check whether the API enforces the financial rules expected of a fintech system.
 
-#### Test A -- Low-Balance Wallet
+#### Test A - Low-Balance Wallet
 
 Wallet 10 has been seeded with a balance of only **R5.00**. The cheapest product (MTN R10 Airtime) costs R10.00.
 
@@ -111,7 +111,7 @@ Wallet 10 has been seeded with a balance of only **R5.00**. The cheapest product
    - Did the wallet balance go negative?
    - Is this acceptable behavior for a fintech application? Why or why not?
 
-#### Test B -- Disabled User
+#### Test B - Disabled User
 
 Users 5, 18, and 33 have `ServiceStatus = 'Disabled'`.
 
@@ -133,7 +133,7 @@ Users 5, 18, and 33 have `ServiceStatus = 'Disabled'`.
    - What should happen instead?
    - What is the business risk if disabled users can issue vouchers?
 
-#### Test C -- Invalid Data Types
+#### Test C - Invalid Data Types
 
 | # | Request Body | What to Record |
 |:--|:---|:---|
@@ -143,13 +143,13 @@ Users 5, 18, and 33 have `ServiceStatus = 'Disabled'`.
 
 ---
 
-## Task 3 -- Database Audit (White-Box Testing)
+## Task 3 - Database Audit (White-Box Testing)
 
 In this section you will write and execute SQL queries against the KoboFintech database to audit data integrity, financial consistency, and data quality.
 
 Open a new query file in VS Code. Make sure you are connected to the **KoboFintech** database (check the status bar at the bottom of the VS Code window).
 
-### 3.1 -- Financial Reconciliation
+### 3.1 - Financial Reconciliation
 
 This query compares each wallet's stored balance against the sum of its transaction amounts.
 
@@ -172,7 +172,7 @@ ORDER BY w.WalletID;
 - Are there wallets where the implied original balance does not match the expected seed value?
 - What could explain any discrepancies?
 
-### 3.2 -- Transaction Audit
+### 3.2 - Transaction Audit
 
 This query checks for transactions that reference wallets or products that do not exist.
 
@@ -194,7 +194,7 @@ WHERE p.ProductID IS NULL;
 - Are there any orphaned records?
 - What does this tell you about the referential integrity of the database?
 
-### 3.3 -- Data Hygiene
+### 3.3 - Data Hygiene
 
 ```sql
 -- Check for duplicate MSISDN values
@@ -221,7 +221,7 @@ WHERE u.UserID IS NULL;
 - Are there any users without wallets, or wallets without users?
 - What risks would these data issues pose in a production system?
 
-### 3.4 -- Revenue Analysis
+### 3.4 - Revenue Analysis
 
 ```sql
 SELECT
@@ -242,27 +242,27 @@ ORDER BY TotalRevenue DESC;
 
 ---
 
-## Task 4 -- Defect Identification and Risk Assessment
+## Task 4 - Defect Identification and Risk Assessment
 
 In this section you will examine the stored procedure and API code to identify defects, then assess their impact on the business.
 
-### 4.1 -- Stored Procedure Review
+### 4.1 - Stored Procedure Review
 
 Open `Database/Database.sql` and locate the `usp_IssueDigitalVoucher` stored procedure near the bottom of the file. Read through it carefully and answer the following questions.
 
 **Questions to consider:**
 
-1. **Balance validation** -- Does the procedure check whether the wallet has enough funds before deducting? What happens if the balance is insufficient?
+1. **Balance validation** - Does the procedure check whether the wallet has enough funds before deducting? What happens if the balance is insufficient?
 
-2. **User status check** -- Does the procedure verify whether the user's `ServiceStatus` is `Active` before processing? What happens if a disabled user's wallet is used?
+2. **User status check** - Does the procedure verify whether the user's `ServiceStatus` is `Active` before processing? What happens if a disabled user's wallet is used?
 
-3. **Transaction safety** -- Are the three operations (balance update, ledger insert, voucher insert) wrapped in a database transaction? What happens if the voucher insert fails after the balance has already been deducted?
+3. **Transaction safety** - Are the three operations (balance update, ledger insert, voucher insert) wrapped in a database transaction? What happens if the voucher insert fails after the balance has already been deducted?
 
-4. **Data type choice** -- The `Balance` and `FaceValue` columns use the `FLOAT` data type. Research why `FLOAT` is problematic for financial calculations. What data type should be used instead?
+4. **Data type choice** - The `Balance` and `FaceValue` columns use the `FLOAT` data type. Research why `FLOAT` is problematic for financial calculations. What data type should be used instead?
 
-5. **Input validation** -- Does the procedure check whether the provided `@WalletID` and `@ProductID` actually exist before using them?
+5. **Input validation** - Does the procedure check whether the provided `@WalletID` and `@ProductID` actually exist before using them?
 
-### 4.2 -- Defect Documentation
+### 4.2 - Defect Documentation
 
 For each defect you identified in section 4.1, write a defect report using the template below. You should identify **at least three defects**.
 
@@ -282,7 +282,7 @@ Business Impact:   [How this affects the business or end users]
 Recommended Fix:   [Brief description of how to fix the defect]
 ```
 
-### 4.3 -- Risk Assessment
+### 4.3 - Risk Assessment
 
 Create a risk matrix for the defects you identified. For each defect, rate the **likelihood** (how likely it is to occur in production) and the **impact** (how severe the consequences are).
 
@@ -298,7 +298,7 @@ Use the following scale:
 - **Impact**: Low, Medium, High, Critical
 - **Risk Level**: Combine likelihood and impact (e.g., High likelihood + Critical impact = Critical risk)
 
-### 4.4 -- Impact Mapping
+### 4.4 - Impact Mapping
 
 For each defect, describe the chain of impact from the technical fault to the business consequence. Use the format:
 

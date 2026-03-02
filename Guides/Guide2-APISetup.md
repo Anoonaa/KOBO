@@ -1,4 +1,4 @@
-# Guide 2 -- API Setup and Exploration
+# Guide 2 - API Setup and Exploration
 
 <p align="center">
   <img src="https://img.shields.io/badge/Duration-30_min-blue?style=for-the-badge" alt="Duration: 30 min" />
@@ -19,14 +19,14 @@ In this guide you will install the project dependencies, start the Kobo Fintech 
 | Requirement | Details |
 |:---|:---|
 | **Guide 1 Completed** | The KoboFintech database must be running and populated |
-| **Node.js** | Version 18 or later -- download from [https://nodejs.org](https://nodejs.org) |
+| **Node.js** | Version 18 or later - download from [https://nodejs.org](https://nodejs.org) |
 | **VS Code** | Visual Studio Code with a terminal |
 
-> **Important** -- Verify Node.js is installed by opening a terminal and running `node --version`. You should see `v18.x.x` or higher.
+> **Important** - Verify Node.js is installed by opening a terminal and running `node --version`. You should see `v18.x.x` or higher.
 
 ---
 
-## Part A -- Install Dependencies
+## Part A - Install Dependencies
 
 1. Open **Visual Studio Code**.
 2. Select **Terminal** from the top menu bar, then **left-click** **New Terminal**.
@@ -44,11 +44,11 @@ In this guide you will install the project dependencies, start the Kobo Fintech 
 
 5. Wait for the installation to complete. You should see output ending with `added X packages`.
 
-> **Note** -- If you see permission errors on Windows, try running VS Code as Administrator. **Right-click** the VS Code shortcut and select **Run as administrator**.
+> **Note** - If you see permission errors on Windows, try running VS Code as Administrator. **Right-click** the VS Code shortcut and select **Run as administrator**.
 
 ---
 
-## Part B -- Start the API Server
+## Part B - Start the API Server
 
 1. In the same terminal (make sure you are still in the `API` folder), type the following command and press **Enter**:
 
@@ -62,16 +62,16 @@ In this guide you will install the project dependencies, start the Kobo Fintech 
    Kobo Services: Port 3000
    ```
 
-3. The API is now running. **Do not close this terminal** -- the server needs to remain running for the rest of this guide.
+3. The API is now running. **Do not close this terminal** - the server needs to remain running for the rest of this guide.
 
-> **Troubleshooting** -- If you see a connection error mentioning SQL Server, verify that:
+> **Troubleshooting** - If you see a connection error mentioning SQL Server, verify that:
 > - SQL Server is running (check Windows Services)
 > - TCP/IP is enabled (see Guide 1, Part C)
 > - You ran `Setup.sql` and `Database.sql` successfully
 
 ---
 
-## Part C -- Open the Swagger Documentation
+## Part C - Open the Swagger Documentation
 
 The API includes an interactive documentation interface powered by Swagger UI.
 
@@ -86,11 +86,11 @@ The API includes an interactive documentation interface powered by Swagger UI.
 
 ---
 
-## Part D -- Explore the Endpoints
+## Part D - Explore the Endpoints
 
 Work through each endpoint below. For each one, **left-click** on the endpoint row to expand it, then **left-click** the **Try it out** button, fill in any required parameters, and **left-click** **Execute**.
 
-### D.1 -- List All Users
+### D.1 - List All Users
 
 | Field | Value |
 |:---|:---|
@@ -104,7 +104,7 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
 4. Scroll down to the **Response body** section.
 5. Verify you see a JSON response containing 50 user records.
 
-### D.2 -- Get a Single User
+### D.2 - Get a Single User
 
 | Field | Value |
 |:---|:---|
@@ -118,7 +118,7 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
 4. **Left-click** the **Execute** button.
 5. Verify the response contains user details including wallet information.
 
-### D.3 -- List All Products
+### D.3 - List All Products
 
 | Field | Value |
 |:---|:---|
@@ -131,7 +131,7 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
 3. **Left-click** the **Execute** button.
 4. Verify you see 3 products: MTN R10 Airtime, Vodacom R20 Airtime, and Eskom R100 Electricity.
 
-### D.4 -- Get a Wallet
+### D.4 - Get a Wallet
 
 | Field | Value |
 |:---|:---|
@@ -145,7 +145,7 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
 4. **Left-click** the **Execute** button.
 5. Verify the response contains wallet balance and owner details.
 
-### D.5 -- List Transactions
+### D.5 - List Transactions
 
 | Field | Value |
 |:---|:---|
@@ -159,7 +159,7 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
 4. **Left-click** the **Execute** button.
 5. Verify the response contains transaction records filtered to WalletID 1.
 
-### D.6 -- Issue a Digital Voucher
+### D.6 - Issue a Digital Voucher
 
 | Field | Value |
 |:---|:---|
@@ -182,7 +182,7 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
 4. **Left-click** the **Execute** button.
 5. Verify the response has status `201` and includes a `pin` value and `status: "SUCCESS"`.
 
-### D.7 -- Verify the Voucher Was Created
+### D.7 - Verify the Voucher Was Created
 
 1. Go back to the **GET /api/v1/vouchers** endpoint.
 2. **Left-click** to expand it, then **left-click** **Try it out**, then **left-click** **Execute**.
@@ -190,9 +190,9 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
 
 ---
 
-## Part E -- Test Error Handling
+## Part E - Test Error Handling
 
-### E.1 -- Request a Non-Existent User
+### E.1 - Request a Non-Existent User
 
 1. Expand **GET /api/v1/users/{id}**.
 2. **Left-click** **Try it out**.
@@ -200,7 +200,7 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
 4. **Left-click** **Execute**.
 5. Verify the response returns status `404` with the message `User does not exist.`
 
-### E.2 -- Issue a Voucher with Missing Fields
+### E.2 - Issue a Voucher with Missing Fields
 
 1. Expand **POST /api/v1/distribution/issue-voucher**.
 2. **Left-click** **Try it out**.
@@ -223,7 +223,7 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
 - [ ] API server started and showing `Kobo Services: Port 3000`
 - [ ] Swagger UI accessible at `http://localhost:3000/api-docs`
 - [ ] All 6 GET endpoints tested and returning data
-- [ ] POST endpoint tested -- voucher issued successfully
+- [ ] POST endpoint tested - voucher issued successfully
 - [ ] Voucher verified in the vouchers list
 - [ ] Error handling tested (404 and 400 responses)
 
@@ -233,4 +233,4 @@ Work through each endpoint below. For each one, **left-click** on the endpoint r
   <img src="https://img.shields.io/badge/Next-Guide_3:_Quality_Engineering-blue?style=for-the-badge" alt="Next: Guide 3" />
 </p>
 
-Proceed to [Guide 3 -- Quality Engineering Exercises](Guide3-QualityEngineering.md).
+Proceed to [Guide 3 - Quality Engineering Exercises](Guide3-QualityEngineering.md).
