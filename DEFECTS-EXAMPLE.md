@@ -254,7 +254,7 @@ The transaction succeeds with HTTP `201`. A valid voucher PIN is generated, the 
 <p align="center">
   <img src="https://img.shields.io/badge/User_5-DISABLED-red?style=for-the-badge&logo=shield&logoColor=white" alt="User 5 Disabled" />
   <img src="https://img.shields.io/badge/→_Voucher-ISSUED-green?style=for-the-badge&logo=ticket&logoColor=white" alt="Voucher Issued" />
-  <img src="https://img.shields.io/badge/⚠_This_Should-NOT_HAPPEN-red?style=for-the-badge" alt="Should Not Happen" />
+  <img src="https://img.shields.io/badge/!_This_Should-NOT_HAPPEN-red?style=for-the-badge" alt="Should Not Happen" />
 </p>
 
 **User 5 Profile:**
@@ -384,13 +384,13 @@ Timeline of a crash mid-transaction:
 #### <img src="https://img.shields.io/badge/-Evidence-FF8C00?style=flat-square&logo=camera&logoColor=white" alt="Evidence" /> Evidence: The Missing Safety Net
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Step_1-Wallet_Debited_✓-green?style=for-the-badge" alt="Step 1 OK" />
-  <img src="https://img.shields.io/badge/Step_2-Ledger_Written_✓-green?style=for-the-badge" alt="Step 2 OK" />
-  <img src="https://img.shields.io/badge/Step_3-Voucher_FAILED_✗-red?style=for-the-badge" alt="Step 3 Failed" />
+  <img src="https://img.shields.io/badge/Step_1-Wallet_Debited-green?style=for-the-badge" alt="Step 1 OK" />
+  <img src="https://img.shields.io/badge/Step_2-Ledger_Written-green?style=for-the-badge" alt="Step 2 OK" />
+  <img src="https://img.shields.io/badge/Step_3-Voucher_FAILED-red?style=for-the-badge" alt="Step 3 Failed" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/⚠_RESULT-Money_Lost_+_No_Product-black?style=for-the-badge&labelColor=DC143C" alt="Money Lost" />
+  <img src="https://img.shields.io/badge/!_RESULT-Money_Lost_+_No_Product-black?style=for-the-badge&labelColor=DC143C" alt="Money Lost" />
 </p>
 
 #### <img src="https://img.shields.io/badge/-Impact-DC143C?style=flat-square&logo=trending-down&logoColor=white" alt="Impact" /> Business Impact
@@ -486,7 +486,7 @@ SELECT CAST(0.1 AS FLOAT) + CAST(0.2 AS FLOAT);
 
 -- DECIMAL handles it correctly
 SELECT CAST(0.1 AS DECIMAL(18,2)) + CAST(0.2 AS DECIMAL(18,2));
--- Returns: 0.30  ✓
+-- Returns: 0.30  (correct)
 ```
 
 #### <img src="https://img.shields.io/badge/-Evidence-FF8C00?style=flat-square&logo=camera&logoColor=white" alt="Evidence" /> Why This Matters in Production
@@ -573,7 +573,7 @@ CREATE TABLE TransactionLedger (
 <p align="center">
   <img src="https://img.shields.io/badge/Request_1-201_Created-green?style=for-the-badge" alt="Request 1" />
   <img src="https://img.shields.io/badge/Request_2_(Same_Ref)-201_Created-green?style=for-the-badge" alt="Request 2" />
-  <img src="https://img.shields.io/badge/⚠_Double_Charge-R20.00_Debited-red?style=for-the-badge" alt="Double Charge" />
+  <img src="https://img.shields.io/badge/!_Double_Charge-R20.00_Debited-red?style=for-the-badge" alt="Double Charge" />
 </p>
 
 **Query Showing Duplicate References:**
