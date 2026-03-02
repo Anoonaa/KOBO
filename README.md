@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/KOBO-Fintech-0066CC?style=for-the-badge&labelColor=003366" alt="Kobo Fintech" />
 </p>
 
-<h1 align="center">Kobo Fintech -- Quality Engineering Project</h1>
+<h1 align="center">Kobo Fintech: Quality Engineering Project</h1>
 
 <p align="center">
   A hands-on Quality Engineering project built around a simulated fintech distribution platform.<br/>
@@ -94,9 +94,9 @@ This step enables SQL Authentication so the API can connect to the database.
 3. **Left-click** the **Add Connection** button (the plug icon with a `+` symbol).
 4. Enter the following when prompted:
    - **Server name**: `localhost` -- press **Enter**
-   - **Database name**: leave blank -- press **Enter**
+   - **Database name**: master -- press **Enter**
    - **Authentication type**: select **Windows Authentication**
-   - **Profile name**: `Local SQL Server` -- press **Enter**
+   - **Profile name**: `Local Server/Your name/Project name` -- press **Enter**
 5. In the file explorer (left sidebar), navigate to the `Database` folder and **double-click** on `Setup.sql` to open it.
 6. Before running, confirm you are connected to the **master** database. Check the database name in the VS Code status bar at the bottom of the window. If it does not say `master`, **left-click** the database name in the status bar and select `master`.
 7. **Right-click** anywhere inside the SQL file in the editor.
@@ -280,3 +280,4 @@ KOBO/
 <p align="center">
   <img src="https://img.shields.io/badge/Built_for-Quality_Engineering_Students-0066CC?style=for-the-badge" alt="Built for QE Students" />
 </p>
+
