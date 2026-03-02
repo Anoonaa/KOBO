@@ -85,7 +85,7 @@ Follow these steps in exact order. Each step builds on the previous one.
 
 ---
 
-### Step 1 -- One-Time SQL Server Configuration
+### Step 1 - One-Time SQL Server Configuration
 
 This step enables SQL Authentication so the API can connect to the database.
 
@@ -93,10 +93,10 @@ This step enables SQL Authentication so the API can connect to the database.
 2. In the left sidebar, **left-click** the **SQL Server** icon.
 3. **Left-click** the **Add Connection** button (the plug icon with a `+` symbol).
 4. Enter the following when prompted:
-   - **Server name**: `localhost` -- press **Enter**
-   - **Database name**: master -- press **Enter**
+   - **Server name**: `localhost` - press **Enter**
+   - **Database name**: master - press **Enter**
    - **Authentication type**: select **Windows Authentication**
-   - **Profile name**: `Local Server/Your name/Project name` -- press **Enter**
+   - **Profile name**: `Local Server/Your name/Project name` - press **Enter**
 5. In the file explorer (left sidebar), navigate to the `Database` folder and **double-click** on `Setup.sql` to open it.
 6. Before running, confirm you are connected to the **master** database. Check the database name in the VS Code status bar at the bottom of the window. If it does not say `master`, **left-click** the database name in the status bar and select `master`.
 7. **Right-click** anywhere inside the SQL file in the editor.
@@ -106,7 +106,7 @@ This step enables SQL Authentication so the API can connect to the database.
 
 ---
 
-### Step 2 -- Enable TCP/IP Network Protocol
+### Step 2 - Enable TCP/IP Network Protocol
 
 The API communicates with SQL Server over TCP/IP, which is disabled by default.
 
@@ -121,7 +121,7 @@ The API communicates with SQL Server over TCP/IP, which is disabled by default.
 
 ---
 
-### Step 3 -- Restart SQL Server
+### Step 3 - Restart SQL Server
 
 1. Go back to the SQL Server Configuration Manager home/opening page.
 2. locate **SQL Server (MSSQLSERVER)**.
@@ -131,7 +131,7 @@ The API communicates with SQL Server over TCP/IP, which is disabled by default.
 
 ---
 
-### Step 4 -- Create the Database
+### Step 4 - Create the Database
 
 1. Return to **Visual Studio Code**.
 2. In the file explorer (left sidebar), navigate to the `Database` folder and **double-click** on `Database.sql` to open it.
@@ -160,7 +160,7 @@ The result should be **50**.
 
 ---
 
-### Step 5 -- Start the API
+### Step 5 - Start the API
 
 1. In VS Code, open the integrated terminal by selecting **Terminal** from the top menu bar, then **left-click** **New Terminal**.
 2. In the terminal, type the following command and press **Enter**:
@@ -209,7 +209,7 @@ All endpoints are accessible through Swagger UI at `http://localhost:3000/api-do
 | `GET` | `/api/v1/vouchers` | Retrieve all issued digital vouchers |
 | `POST` | `/api/v1/distribution/issue-voucher` | Issue a new digital voucher (debits wallet) |
 
-### POST Request Body -- Issue Voucher
+### POST Request Body - Issue Voucher
 
 ```json
 {

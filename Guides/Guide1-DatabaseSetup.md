@@ -1,4 +1,4 @@
-# Guide 1 -- Database Setup and Verification
+# Guide 1 - Database Setup and Verification
 
 <p align="center">
   <img src="https://img.shields.io/badge/Duration-30_min-blue?style=for-the-badge" alt="Duration: 30 min" />
@@ -24,7 +24,7 @@ In this guide you will configure Microsoft SQL Server for API connectivity, run 
 
 ---
 
-## Part A -- Connect VS Code to SQL Server
+## Part A - Connect VS Code to SQL Server
 
 1. Open **Visual Studio Code**.
 2. In the left sidebar, **left-click** on the **SQL Server** icon.
@@ -38,7 +38,7 @@ In this guide you will configure Microsoft SQL Server for API connectivity, run 
 
 ---
 
-## Part B -- Run the Setup Script
+## Part B - Run the Setup Script
 
 The setup script enables SQL Authentication and configures the `sa` (system administrator) login that the API uses to connect to the database.
 
@@ -52,7 +52,7 @@ The setup script enables SQL Authentication and configures the `sa` (system admi
 
 ---
 
-## Part C -- Enable TCP/IP and Restart SQL Server
+## Part C - Enable TCP/IP and Restart SQL Server
 
 The API connects to SQL Server over TCP/IP, which is disabled by default. You must enable it manually.
 
@@ -78,7 +78,7 @@ The API connects to SQL Server over TCP/IP, which is disabled by default. You mu
 
 ---
 
-## Part D -- Create the KoboFintech Database
+## Part D - Create the KoboFintech Database
 
 1. Return to **Visual Studio Code**.
 2. In the file explorer (left sidebar), navigate to the `Database` folder and **double-click** on `Database.sql` to open it.
@@ -96,7 +96,7 @@ The API connects to SQL Server over TCP/IP, which is disabled by default. You mu
 
 ---
 
-## Part E -- Verify the Database
+## Part E - Verify the Database
 
 First, switch to the **KoboFintech** database by **left-clicking** the database name in the VS Code status bar (bottom of the window) and selecting `KoboFintech` from the list.
 
@@ -174,4 +174,4 @@ Use this checklist to confirm you have completed all parts of this guide:
   <img src="https://img.shields.io/badge/Next-Guide_2:_API_Setup-blue?style=for-the-badge" alt="Next: Guide 2" />
 </p>
 
-Proceed to [Guide 2 -- API Setup and Exploration](Guide2-APISetup.md).
+Proceed to [Guide 2 - API Setup and Exploration](Guide2-APISetup.md).
