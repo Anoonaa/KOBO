@@ -660,7 +660,7 @@ const dbConfig = {
 |:---|:---|
 | **Security** | Full database admin access available to anyone with source code access |
 | **Compliance** | Violates POPIA (Protection of Personal Information Act) data handling requirements |
-| **Operations** | Using the `sa` account for application access is a well known antipattern |
+| **Operations** | Using the `sa` account for application access is a well-known antipattern |
 
 #### 🔧 Recommended Fix
 
