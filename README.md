@@ -123,12 +123,11 @@ The API communicates with SQL Server over TCP/IP, which is disabled by default.
 
 ### Step 3 -- Restart SQL Server
 
-1. Open the **Start Menu**.
-2. Type `Services` and press **Enter**.
-3. In the Services window, scroll down and locate **SQL Server (MSSQLSERVER)**.
-4. **Right-click** on **SQL Server (MSSQLSERVER)**.
-5. **Left-click** **Restart** from the context menu.
-6. Wait until the status column shows **Running**.
+1. Go back to the SQL Server Configuration Manager home/opening page.
+2. locate **SQL Server (MSSQLSERVER)**.
+3. **Right-click** on **SQL Server (MSSQLSERVER)**.
+4. **Left-click** **Restart** from the context menu.
+5. Wait until the status column shows **Running**.
 
 ---
 
@@ -280,5 +279,6 @@ KOBO/
 <p align="center">
   <img src="https://img.shields.io/badge/Built_for-Quality_Engineering_Students-0066CC?style=for-the-badge" alt="Built for QE Students" />
 </p>
+
 
 
