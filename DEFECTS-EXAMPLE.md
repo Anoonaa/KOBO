@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/KOBO_FINTECH-Defect_Report-DC143C?style=for-the-badge&labelColor=8B0000" alt="Kobo Fintech Defect Report" />
 </p>
 
-<h1 align="center">🛡️ Task 4: Defect Identification &amp; Risk Assessment</h1>
+<h1 align="center"><img src="https://img.shields.io/badge/-DEFECT_REPORT-8B0000?style=flat-square&logo=shield&logoColor=white" alt="Shield" /> Task 4: Defect Identification &amp; Risk Assessment</h1>
 
 <p align="center">
   <em>A comprehensive defect analysis of the Kobo Fintech Digital Distribution Platform</em>
@@ -24,7 +24,7 @@
 
 ---
 
-## 📑 Table of Contents
+## <img src="https://img.shields.io/badge/-TOC-4169E1?style=flat-square&logo=readthedocs&logoColor=white" alt="TOC" /> Table of Contents
 
 | # | Section | Description |
 |:---:|:---|:---|
@@ -38,7 +38,7 @@
 
 ---
 
-## 📋 Executive Summary
+## <img src="https://img.shields.io/badge/-Summary-2E8B57?style=flat-square&logo=clipboard&logoColor=white" alt="Summary" /> Executive Summary
 
 <table>
 <tr>
@@ -64,7 +64,7 @@
 
 ---
 
-## 🔬 4.1 Procedural Flaws · SQL Logic Defects
+## <img src="https://img.shields.io/badge/-Procedural-DC143C?style=flat-square&logo=bug&logoColor=white" alt="Procedural" /> 4.1 Procedural Flaws · SQL Logic Defects
 
 > **Scope:** Analysis of the `usp_IssueDigitalVoucher` stored procedure in `Database/Database.sql`
 >
@@ -92,11 +92,11 @@
 </tr>
 </table>
 
-#### 📝 Description
+#### <img src="https://img.shields.io/badge/-Description-4169E1?style=flat-square" alt="Description" /> Description
 
 The stored procedure performs a wallet balance deduction **without first verifying** that the wallet contains sufficient funds. The `UPDATE` statement blindly subtracts the product's `FaceValue` from the wallet `Balance`, regardless of the current balance.
 
-#### 🔍 Affected Code
+#### <img src="https://img.shields.io/badge/-Affected_Code-555555?style=flat-square&logo=codesandbox&logoColor=white" alt="Code" /> Affected Code
 
 ```sql
 -- Line 99 of Database.sql
@@ -105,9 +105,9 @@ SET Balance = Balance - (SELECT FaceValue FROM Products WHERE ProductID = @Produ
 WHERE WalletID = @WalletID;
 ```
 
-> ⚠️ **There is no `WHERE Balance >= FaceValue` guard or preliminary balance check anywhere in the procedure.**
+> <img src="https://img.shields.io/badge/-WARNING-orange?style=flat-square&logo=alert&logoColor=white" alt="Warning" /> **There is no `WHERE Balance >= FaceValue` guard or preliminary balance check anywhere in the procedure.**
 
-#### 🧪 Steps to Reproduce
+#### <img src="https://img.shields.io/badge/-Test-9B59B6?style=flat-square&logo=testcafe&logoColor=white" alt="Test" /> Steps to Reproduce
 
 1. Confirm Wallet 10 has a balance of **R5.00** by calling `GET /api/v1/wallets/10`.
 2. Issue a voucher for ProductID 1 (MTN R10 Airtime, FaceValue = R10.00):
@@ -120,15 +120,15 @@ WHERE WalletID = @WalletID;
    ```
 3. Call `GET /api/v1/wallets/10` again to check the resulting balance.
 
-#### ✅ Expected Result
+#### <img src="https://img.shields.io/badge/-Expected-2E8B57?style=flat-square" alt="Expected" /> Expected Result
 
 The system should **reject the transaction** with a clear error message indicating insufficient funds. The wallet balance should remain at R5.00.
 
-#### ❌ Actual Result
+#### <img src="https://img.shields.io/badge/-Actual-DC143C?style=flat-square" alt="Actual" /> Actual Result
 
 The transaction succeeds with HTTP `201`. The wallet balance drops to **negative R5.00** ( R5.00 minus R10.00 = negative R5.00). The user receives a valid voucher PIN despite having insufficient funds.
 
-#### 📸 Evidence
+#### <img src="https://img.shields.io/badge/-Evidence-FF8C00?style=flat-square&logo=camera&logoColor=white" alt="Evidence" /> Evidence
 
 <p align="center">
   <img src="https://img.shields.io/badge/Wallet_10_Before-R5.00-green?style=for-the-badge&logo=cash-app&logoColor=white" alt="Before: R5.00" />
@@ -160,7 +160,7 @@ The transaction succeeds with HTTP `201`. The wallet balance drops to **negative
 }
 ```
 
-#### 💰 Business Impact
+#### <img src="https://img.shields.io/badge/-Impact-DC143C?style=flat-square&logo=trending-down&logoColor=white" alt="Impact" /> Business Impact
 
 | Dimension | Impact |
 |:---|:---|
@@ -168,7 +168,7 @@ The transaction succeeds with HTTP `201`. The wallet balance drops to **negative
 | **Scale** | Every wallet in the system is vulnerable; 50 wallets at risk |
 | **Regulatory** | Violates financial service minimum balance requirements |
 
-#### 🔧 Recommended Fix
+#### <img src="https://img.shields.io/badge/-Fix-2E8B57?style=flat-square&logo=wrench&logoColor=white" alt="Fix" /> Recommended Fix
 
 ```sql
 -- Add balance validation before debit
@@ -204,11 +204,11 @@ END;
 </tr>
 </table>
 
-#### 📝 Description
+#### <img src="https://img.shields.io/badge/-Description-4169E1?style=flat-square" alt="Description" /> Description
 
 The `usp_IssueDigitalVoucher` procedure accepts a `@WalletID` parameter and immediately processes the transaction. It **never joins back to the `Users` table** to verify whether the account holder's `ServiceStatus` is `Active`. Users flagged as `Disabled` (UserIDs 5, 18, 33) can still successfully issue vouchers.
 
-#### 🔍 Affected Code
+#### <img src="https://img.shields.io/badge/-Affected_Code-555555?style=flat-square&logo=codesandbox&logoColor=white" alt="Code" /> Affected Code
 
 ```sql
 -- The entire procedure operates solely on WalletID and ProductID
@@ -226,9 +226,9 @@ BEGIN
     ...
 ```
 
-> ⚠️ **The `Users` table is never queried. The `ServiceStatus` column is completely ignored.**
+> <img src="https://img.shields.io/badge/-WARNING-orange?style=flat-square&logo=alert&logoColor=white" alt="Warning" /> **The `Users` table is never queried. The `ServiceStatus` column is completely ignored.**
 
-#### 🧪 Steps to Reproduce
+#### <img src="https://img.shields.io/badge/-Test-9B59B6?style=flat-square&logo=testcafe&logoColor=white" alt="Test" /> Steps to Reproduce
 
 1. Confirm User 5 is disabled: call `GET /api/v1/users/5` and note `ServiceStatus: "Disabled"` and the associated `WalletID`.
 2. Issue a voucher using that wallet:
@@ -241,15 +241,15 @@ BEGIN
    ```
 3. Observe the response.
 
-#### ✅ Expected Result
+#### <img src="https://img.shields.io/badge/-Expected-2E8B57?style=flat-square" alt="Expected" /> Expected Result
 
 The system should **reject the transaction** with an error such as `"User account is disabled. Transaction not permitted."`
 
-#### ❌ Actual Result
+#### <img src="https://img.shields.io/badge/-Actual-DC143C?style=flat-square" alt="Actual" /> Actual Result
 
 The transaction succeeds with HTTP `201`. A valid voucher PIN is generated, the wallet is debited, and a ledger entry is created for a disabled user.
 
-#### 📸 Evidence
+#### <img src="https://img.shields.io/badge/-Evidence-FF8C00?style=flat-square&logo=camera&logoColor=white" alt="Evidence" /> Evidence
 
 <p align="center">
   <img src="https://img.shields.io/badge/User_5-DISABLED-red?style=for-the-badge&logo=shield&logoColor=white" alt="User 5 Disabled" />
@@ -273,7 +273,7 @@ The transaction succeeds with HTTP `201`. A valid voucher PIN is generated, the 
 }
 ```
 
-#### 💰 Business Impact
+#### <img src="https://img.shields.io/badge/-Impact-DC143C?style=flat-square&logo=trending-down&logoColor=white" alt="Impact" /> Business Impact
 
 | Dimension | Impact |
 |:---|:---|
@@ -281,7 +281,7 @@ The transaction succeeds with HTTP `201`. A valid voucher PIN is generated, the 
 | **Fraud** | Flagged accounts can continue transacting, enabling fraud |
 | **Compliance** | Violates KYC/AML controls that require account suspension to be enforceable |
 
-#### 🔧 Recommended Fix
+#### <img src="https://img.shields.io/badge/-Fix-2E8B57?style=flat-square&logo=wrench&logoColor=white" alt="Fix" /> Recommended Fix
 
 ```sql
 -- Add user status validation at the start of the procedure
@@ -320,19 +320,19 @@ END;
 </tr>
 </table>
 
-#### 📝 Description
+#### <img src="https://img.shields.io/badge/-Description-4169E1?style=flat-square" alt="Description" /> Description
 
 The stored procedure performs **three dependent write operations** in sequence:
 
 | Step | Operation | Table Affected |
 |:---:|:---|:---|
-| 1️⃣ | Debit wallet balance | `Wallets` |
-| 2️⃣ | Insert transaction record | `TransactionLedger` |
-| 3️⃣ | Insert voucher record | `DigitalVouchers` |
+| 1 | Debit wallet balance | `Wallets` |
+| 2 | Insert transaction record | `TransactionLedger` |
+| 3 | Insert voucher record | `DigitalVouchers` |
 
 These operations are **not wrapped** in a `BEGIN TRANSACTION` / `COMMIT` / `ROLLBACK` block. If step 3 fails (e.g., due to a constraint violation, deadlock, or server crash), the wallet has already been debited and the ledger entry already exists, but **no voucher is generated**. The user loses money without receiving their product.
 
-#### 🔍 Affected Code
+#### <img src="https://img.shields.io/badge/-Affected_Code-555555?style=flat-square&logo=codesandbox&logoColor=white" alt="Code" /> Affected Code
 
 ```sql
 CREATE PROCEDURE usp_IssueDigitalVoucher
@@ -343,7 +343,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- ❌ No BEGIN TRANSACTION here
+    -- [MISSING] No BEGIN TRANSACTION here
 
     -- Step 1: Debit (executes immediately, no rollback possible)
     UPDATE Wallets SET Balance = Balance - (SELECT FaceValue FROM Products WHERE ProductID = @ProductID)
@@ -361,27 +361,27 @@ BEGIN
     VALUES (@NewEntryID, CAST(ABS(CHECKSUM(NEWID())) AS NVARCHAR),
             DATEADD(YEAR, 1, GETDATE()));
 
-    -- ❌ No COMMIT or ROLLBACK
+    -- [MISSING] No COMMIT or ROLLBACK
     SELECT PinData FROM DigitalVouchers WHERE EntryID = @NewEntryID;
 END;
 ```
 
-#### 🧪 Failure Scenario
+#### <img src="https://img.shields.io/badge/-Test-9B59B6?style=flat-square&logo=testcafe&logoColor=white" alt="Test" /> Failure Scenario
 
 ```
 Timeline of a crash mid-transaction:
 
-  [T+0ms]  Step 1 executes ✅  Wallet debited by R10.00
-  [T+2ms]  Step 2 executes ✅  Ledger entry created (status: 'Completed')
-  [T+3ms]  ⚡ SERVER CRASH / DEADLOCK / CONSTRAINT ERROR
-  [T+3ms]  Step 3 FAILS    ❌  No voucher record created
+  [T+0ms]  Step 1 executes [OK]  Wallet debited by R10.00
+  [T+2ms]  Step 2 executes [OK]  Ledger entry created (status: 'Completed')
+  [T+3ms]  *** SERVER CRASH / DEADLOCK / CONSTRAINT ERROR
+  [T+3ms]  Step 3 FAILS    [FAIL]  No voucher record created
 
   Result: Customer charged R10.00 but received NOTHING.
            Ledger says 'Completed' but no voucher exists.
            Data is now inconsistent across 3 tables.
 ```
 
-#### 📸 Evidence: The Missing Safety Net
+#### <img src="https://img.shields.io/badge/-Evidence-FF8C00?style=flat-square&logo=camera&logoColor=white" alt="Evidence" /> Evidence: The Missing Safety Net
 
 <p align="center">
   <img src="https://img.shields.io/badge/Step_1-Wallet_Debited_✓-green?style=for-the-badge" alt="Step 1 OK" />
@@ -393,7 +393,7 @@ Timeline of a crash mid-transaction:
   <img src="https://img.shields.io/badge/⚠_RESULT-Money_Lost_+_No_Product-black?style=for-the-badge&labelColor=DC143C" alt="Money Lost" />
 </p>
 
-#### 💰 Business Impact
+#### <img src="https://img.shields.io/badge/-Impact-DC143C?style=flat-square&logo=trending-down&logoColor=white" alt="Impact" /> Business Impact
 
 | Dimension | Impact |
 |:---|:---|
@@ -402,7 +402,7 @@ Timeline of a crash mid-transaction:
 | **Customer Trust** | Users lose confidence in the platform after unexplained balance deductions |
 | **Audit Risk** | Inconsistent records make financial audits unreliable |
 
-#### 🔧 Recommended Fix
+#### <img src="https://img.shields.io/badge/-Fix-2E8B57?style=flat-square&logo=wrench&logoColor=white" alt="Fix" /> Recommended Fix
 
 ```sql
 CREATE PROCEDURE usp_IssueDigitalVoucher
@@ -437,7 +437,7 @@ END;
 
 ---
 
-## 🏗️ 4.2 Structural Flaws · Table &amp; API Defects
+## <img src="https://img.shields.io/badge/-Structural-FF8C00?style=flat-square&logo=database&logoColor=white" alt="Structural" /> 4.2 Structural Flaws · Table &amp; API Defects
 
 > **Scope:** Analysis of the database schema (`Database.sql`) and REST API (`API/server.js`)
 >
@@ -465,11 +465,11 @@ END;
 </tr>
 </table>
 
-#### 📝 Description
+#### <img src="https://img.shields.io/badge/-Description-4169E1?style=flat-square" alt="Description" /> Description
 
 Three tables store financial values using the `FLOAT` data type, which is an **IEEE 754 binary floating point** representation. This data type is inherently unsuitable for financial calculations because it cannot precisely represent most decimal fractions (e.g., 0.10 in binary is a repeating fraction). Over thousands of transactions, rounding errors accumulate and produce incorrect balances.
 
-#### 🔍 Affected Columns
+#### <img src="https://img.shields.io/badge/-Affected_Code-555555?style=flat-square&logo=codesandbox&logoColor=white" alt="Code" /> Affected Columns
 
 | Table | Column | Current Type | Correct Type |
 |:---|:---|:---:|:---:|
@@ -477,7 +477,7 @@ Three tables store financial values using the `FLOAT` data type, which is an **I
 | `Products` | `FaceValue` | `FLOAT` | `DECIMAL(18,2)` |
 | `TransactionLedger` | `Amount` | `FLOAT` | `DECIMAL(18,2)` |
 
-#### 🧪 Demonstration of Precision Loss
+#### <img src="https://img.shields.io/badge/-Test-9B59B6?style=flat-square&logo=testcafe&logoColor=white" alt="Test" /> Demonstration of Precision Loss
 
 ```sql
 -- FLOAT cannot precisely represent 0.1 + 0.2
@@ -489,7 +489,7 @@ SELECT CAST(0.1 AS DECIMAL(18,2)) + CAST(0.2 AS DECIMAL(18,2));
 -- Returns: 0.30  ✓
 ```
 
-#### 📸 Why This Matters in Production
+#### <img src="https://img.shields.io/badge/-Evidence-FF8C00?style=flat-square&logo=camera&logoColor=white" alt="Evidence" /> Why This Matters in Production
 
 <p align="center">
   <img src="https://img.shields.io/badge/1_Transaction-Error_≈_R0.00-green?style=for-the-badge" alt="1 TXN" />
@@ -497,9 +497,9 @@ SELECT CAST(0.1 AS DECIMAL(18,2)) + CAST(0.2 AS DECIMAL(18,2));
   <img src="https://img.shields.io/badge/1,000,000_Transactions-Error_≈_R12.50+-red?style=for-the-badge" alt="1M TXN" />
 </p>
 
-> 📊 **At scale, floating point errors compound.** A fintech platform processing millions of transactions per month could accumulate tens of thousands of Rands in untracked discrepancies, making financial audits fail and reconciliation impossible.
+> <img src="https://img.shields.io/badge/-NOTE-4169E1?style=flat-square&logo=info&logoColor=white" alt="Note" /> **At scale, floating point errors compound.** A fintech platform processing millions of transactions per month could accumulate tens of thousands of Rands in untracked discrepancies, making financial audits fail and reconciliation impossible.
 
-#### 💰 Business Impact
+#### <img src="https://img.shields.io/badge/-Impact-DC143C?style=flat-square&logo=trending-down&logoColor=white" alt="Impact" /> Business Impact
 
 | Dimension | Impact |
 |:---|:---|
@@ -507,7 +507,7 @@ SELECT CAST(0.1 AS DECIMAL(18,2)) + CAST(0.2 AS DECIMAL(18,2));
 | **Audit** | Financial reconciliation queries produce mismatched totals |
 | **Regulatory** | South African Reserve Bank (SARB) requires precise record keeping |
 
-#### 🔧 Recommended Fix
+#### <img src="https://img.shields.io/badge/-Fix-2E8B57?style=flat-square&logo=wrench&logoColor=white" alt="Fix" /> Recommended Fix
 
 ```sql
 -- Migrate all financial columns to DECIMAL(18,2)
@@ -538,11 +538,11 @@ ALTER TABLE TransactionLedger ALTER COLUMN Amount DECIMAL(18,2);
 </tr>
 </table>
 
-#### 📝 Description
+#### <img src="https://img.shields.io/badge/-Description-4169E1?style=flat-square" alt="Description" /> Description
 
 The `ExternalReference` column on the `TransactionLedger` table has **no UNIQUE constraint**. This means the same reference string can be submitted multiple times, and each submission will create a new transaction, debit the wallet again, and generate another voucher. In a production environment, network retries, double clicks, or malicious replay attacks would result in **duplicate charges**.
 
-#### 🔍 Affected Schema
+#### <img src="https://img.shields.io/badge/-Affected_Code-555555?style=flat-square&logo=codesandbox&logoColor=white" alt="Code" /> Affected Schema
 
 ```sql
 -- Current definition (Database.sql, Lines 41-49)
@@ -551,13 +551,13 @@ CREATE TABLE TransactionLedger (
     WalletID INT FOREIGN KEY REFERENCES Wallets(WalletID),
     ProductID INT FOREIGN KEY REFERENCES Products(ProductID),
     Amount FLOAT NOT NULL,
-    ExternalReference NVARCHAR(100),     -- ❌ No UNIQUE constraint!
+    ExternalReference NVARCHAR(100),     -- [MISSING] No UNIQUE constraint!
     ProcessingStatus NVARCHAR(20),
     CreatedTimestamp DATETIME DEFAULT GETDATE()
 );
 ```
 
-#### 🧪 Steps to Reproduce
+#### <img src="https://img.shields.io/badge/-Test-9B59B6?style=flat-square&logo=testcafe&logoColor=white" alt="Test" /> Steps to Reproduce
 
 1. Issue a voucher with reference `"DUPLICATE-TEST-001"`:
    ```json
@@ -568,7 +568,7 @@ CREATE TABLE TransactionLedger (
 4. The wallet is debited **twice** (R20.00 total for two R10.00 transactions).
 5. Two separate vouchers are generated for the same reference.
 
-#### 📸 Evidence
+#### <img src="https://img.shields.io/badge/-Evidence-FF8C00?style=flat-square&logo=camera&logoColor=white" alt="Evidence" /> Evidence
 
 <p align="center">
   <img src="https://img.shields.io/badge/Request_1-201_Created-green?style=for-the-badge" alt="Request 1" />
@@ -585,7 +585,7 @@ GROUP BY ExternalReference
 HAVING COUNT(*) > 1;
 ```
 
-#### 💰 Business Impact
+#### <img src="https://img.shields.io/badge/-Impact-DC143C?style=flat-square&logo=trending-down&logoColor=white" alt="Impact" /> Business Impact
 
 | Dimension | Impact |
 |:---|:---|
@@ -593,7 +593,7 @@ HAVING COUNT(*) > 1;
 | **Reputation** | Double billing erodes customer trust and increases chargebacks |
 | **Legal** | Duplicate charges may violate Consumer Protection Act provisions |
 
-#### 🔧 Recommended Fix
+#### <img src="https://img.shields.io/badge/-Fix-2E8B57?style=flat-square&logo=wrench&logoColor=white" alt="Fix" /> Recommended Fix
 
 ```sql
 -- Add a unique constraint to prevent duplicate references
@@ -623,30 +623,30 @@ ADD CONSTRAINT UQ_ExternalReference UNIQUE (ExternalReference);
 </tr>
 </table>
 
-#### 📝 Description
+#### <img src="https://img.shields.io/badge/-Description-4169E1?style=flat-square" alt="Description" /> Description
 
 The API server configuration in `server.js` contains **hardcoded database credentials** as fallback values. While environment variables are supported, the fallback defaults expose the `sa` (System Administrator) username and password directly in the source code. If this repository is made public or shared, anyone can read the credentials and gain full administrative access to the database.
 
-#### 🔍 Affected Code
+#### <img src="https://img.shields.io/badge/-Affected_Code-555555?style=flat-square&logo=codesandbox&logoColor=white" alt="Code" /> Affected Code
 
 ```javascript
 // API/server.js, Lines 15-25
 const dbConfig = {
     server: process.env.DB_SERVER || 'localhost',
     database: process.env.DB_NAME || 'KoboFintech',
-    user: process.env.DB_USER || 'sa',                    // ❌ SA account exposed
-    password: process.env.DB_PASSWORD || 'Password123',    // ❌ Password in plain text
+    user: process.env.DB_USER || 'sa',                    // [!] SA account exposed
+    password: process.env.DB_PASSWORD || 'Password123',    // [!] Password in plain text
     port: parseInt(process.env.DB_PORT) || 1433,
     options: {
-        encrypt: false,                                    // ❌ Encryption disabled
+        encrypt: false,                                    // [!] Encryption disabled
         trustServerCertificate: true
     }
 };
 ```
 
-> ⚠️ **Three issues in one block:** SA credentials in code, weak password, and encryption disabled.
+> <img src="https://img.shields.io/badge/-WARNING-orange?style=flat-square&logo=alert&logoColor=white" alt="Warning" /> **Three issues in one block:** SA credentials in code, weak password, and encryption disabled.
 
-#### 📸 Security Concern Visualization
+#### <img src="https://img.shields.io/badge/-Evidence-FF8C00?style=flat-square&logo=camera&logoColor=white" alt="Evidence" /> Security Concern Visualization
 
 <p align="center">
   <img src="https://img.shields.io/badge/User-sa_(System_Admin)-red?style=for-the-badge&logo=key&logoColor=white" alt="SA User" />
@@ -654,7 +654,7 @@ const dbConfig = {
   <img src="https://img.shields.io/badge/Encryption-DISABLED-red?style=for-the-badge&logo=shield&logoColor=white" alt="No Encryption" />
 </p>
 
-#### 💰 Business Impact
+#### <img src="https://img.shields.io/badge/-Impact-DC143C?style=flat-square&logo=trending-down&logoColor=white" alt="Impact" /> Business Impact
 
 | Dimension | Impact |
 |:---|:---|
@@ -662,7 +662,7 @@ const dbConfig = {
 | **Compliance** | Violates POPIA (Protection of Personal Information Act) data handling requirements |
 | **Operations** | Using the `sa` account for application access is a well-known antipattern |
 
-#### 🔧 Recommended Fix
+#### <img src="https://img.shields.io/badge/-Fix-2E8B57?style=flat-square&logo=wrench&logoColor=white" alt="Fix" /> Recommended Fix
 
 ```javascript
 // Use environment variables exclusively, fail fast if not provided
@@ -688,32 +688,32 @@ function requireEnv(name) {
 
 ---
 
-## 🗺️ 4.3 Impact Mapping
+## <img src="https://img.shields.io/badge/-Impact-8B0000?style=flat-square&logo=target&logoColor=white" alt="Impact" /> 4.3 Impact Mapping
 
 > For the **two most critical findings**, below is the full chain of impact from technical fault to business consequence.
 
 ---
 
-### 🔴 Critical Finding 1: No Balance Validation (DEF‑001)
+### <img src="https://img.shields.io/badge/-●-DC143C?style=flat-square" alt="Critical" /> Critical Finding 1: No Balance Validation (DEF‑001)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                        IMPACT CHAIN: DEF‑001                                │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  🔧 Technical Fault                                                        │
+│  [TECHNICAL] Fault                                                        │
 │  │  No balance check in usp_IssueDigitalVoucher                           │
 │  │                                                                         │
 │  ▼                                                                         │
-│  ⚙️ System Behavior                                                        │
+│  [SYSTEM] Behavior                                                        │
 │  │  Wallet balance goes negative; products issued without payment          │
 │  │                                                                         │
 │  ▼                                                                         │
-│  👤 User Impact                                                            │
+│  [USER] Impact                                                            │
 │  │  Users can obtain unlimited vouchers regardless of their balance        │
 │  │                                                                         │
 │  ▼                                                                         │
-│  💼 Business Consequence                                                   │
+│  [BUSINESS] Consequence                                                   │
 │     • Direct financial loss on every negative balance transaction          │
 │     • At scale: If 1,000 users exploit this, each issuing one R100        │
 │       voucher on empty wallets = R100,000 in unrecoverable losses         │
@@ -721,7 +721,7 @@ function requireEnv(name) {
 │       to service providers (MTN, Vodacom, Eskom) without payment          │
 │     • Potential breach of service level agreements with providers          │
 │                                                                             │
-│  ⚖️ Legal/Regulatory Exposure                                              │
+│  [LEGAL] Legal/Regulatory Exposure                                              │
 │     • South African Reserve Bank (SARB) can impose penalties for           │
 │       financial control failures in licensed fintech operations            │
 │     • Service providers may pursue breach of contract claims               │
@@ -737,27 +737,27 @@ function requireEnv(name) {
 
 ---
 
-### 🔴 Critical Finding 2: No Transaction Atomicity (DEF‑003)
+### <img src="https://img.shields.io/badge/-●-DC143C?style=flat-square" alt="Critical" /> Critical Finding 2: No Transaction Atomicity (DEF‑003)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                        IMPACT CHAIN: DEF‑003                                │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  🔧 Technical Fault                                                        │
+│  [TECHNICAL] Fault                                                        │
 │  │  Three SQL operations not wrapped in a transaction block                │
 │  │                                                                         │
 │  ▼                                                                         │
-│  ⚙️ System Behavior                                                        │
+│  [SYSTEM] Behavior                                                        │
 │  │  Partial writes: money deducted, ledger recorded as "Completed",       │
 │  │  but no voucher generated                                               │
 │  │                                                                         │
 │  ▼                                                                         │
-│  👤 User Impact                                                            │
+│  [USER] Impact                                                            │
 │  │  Customer pays but receives no product; support tickets flood in       │
 │  │                                                                         │
 │  ▼                                                                         │
-│  💼 Business Consequence                                                   │
+│  [BUSINESS] Consequence                                                   │
 │     • Mandatory refund processing for every failed transaction             │
 │     • Under high traffic (e.g., month end salary day), failure rate        │
 │       increases due to deadlocks and resource contention                   │
@@ -766,7 +766,7 @@ function requireEnv(name) {
 │     • TransactionLedger records "Completed" for failed transactions,       │
 │       making automated reconciliation unreliable                           │
 │                                                                             │
-│  ⚖️ Legal/Regulatory Exposure                                              │
+│  [LEGAL] Legal/Regulatory Exposure                                              │
 │     • Consumer Protection Act Section 54: consumers entitled to            │
 │       services paid for; failure to deliver is a statutory violation       │
 │     • SARB reporting requirements demand accurate transaction records;     │
@@ -783,7 +783,7 @@ function requireEnv(name) {
 
 ---
 
-## ❓ Task 4 Question · Dirty Data Analysis
+## <img src="https://img.shields.io/badge/-Question-4169E1?style=flat-square&logo=helpdesk&logoColor=white" alt="Question" /> Task 4 Question · Dirty Data Analysis
 
 <table>
 <tr>
@@ -798,7 +798,7 @@ function requireEnv(name) {
 
 ---
 
-### 🎯 Answer: The `TransactionLedger` Table
+### <img src="https://img.shields.io/badge/-Answer-2E8B57?style=flat-square&logo=bullseye&logoColor=white" alt="Answer" /> Answer: The `TransactionLedger` Table
 
 The **`TransactionLedger`** table is the most likely to contain dirty data after a mid transaction crash. Here is why:
 
@@ -809,7 +809,7 @@ The **`TransactionLedger`** table is the most likely to contain dirty data after
 ┌─────┬───────────────────┬──────────────────────┬──────────────────────────┐
 │  1  │ Wallets           │ UPDATE Balance       │ Low (first operation)    │
 ├─────┼───────────────────┼──────────────────────┼──────────────────────────┤
-│  2  │ TransactionLedger │ INSERT new record    │ ⚠️ HIGH (middle step)    │
+│  2  │ TransactionLedger │ INSERT new record    │ [!] HIGH (middle step)    │
 │     │                   │ Status: 'Completed'  │                          │
 ├─────┼───────────────────┼──────────────────────┼──────────────────────────┤
 │  3  │ DigitalVouchers   │ INSERT voucher       │ Medium (last step)       │
@@ -828,9 +828,9 @@ The `TransactionLedger` receives a record with `ProcessingStatus = 'Completed'` 
 
 | Condition | State |
 |:---|:---|
-| Wallet balance | ✅ Debited (Step 1 committed) |
-| Ledger record | ⚠️ Exists with status `'Completed'` (Step 2 committed) |
-| Voucher record | ❌ Does not exist (Step 3 never executed) |
+| Wallet balance | Debited (committed) |
+| Ledger record | Exists [WARNING] with status `'Completed'` (Step 2 committed) |
+| Voucher record | Does not exist (failed) |
 
 **This makes the `TransactionLedger` the source of dirty data because:**
 
@@ -857,11 +857,11 @@ WHERE t.ProcessingStatus = 'Completed'
   AND v.VoucherID IS NULL;
 ```
 
-> ⚠️ **Any rows returned by this query represent dirty data: the system recorded them as completed, but no voucher was ever issued.**
+> <img src="https://img.shields.io/badge/-WARNING-orange?style=flat-square&logo=alert&logoColor=white" alt="Warning" /> **Any rows returned by this query represent dirty data: the system recorded them as completed, but no voucher was ever issued.**
 
 ---
 
-### 🔧 The Fix: Three Layer Protection
+### <img src="https://img.shields.io/badge/-Fix-2E8B57?style=flat-square&logo=wrench&logoColor=white" alt="Fix" /> The Fix: Three Layer Protection
 
 #### Layer 1: Transaction Atomicity
 
@@ -914,7 +914,7 @@ WHERE ProcessingStatus = 'Processing'
 
 ---
 
-## 📊 Consolidated Risk Matrix
+## <img src="https://img.shields.io/badge/-Risk_Matrix-DC143C?style=flat-square&logo=matrix&logoColor=white" alt="Risk Matrix" /> Consolidated Risk Matrix
 
 <table>
 <thead>
@@ -932,42 +932,42 @@ WHERE ProcessingStatus = 'Processing'
 <td>No Balance Validation Before Debit</td>
 <td align="center"><img src="https://img.shields.io/badge/-High-FF4500?style=flat-square" alt="High" /></td>
 <td align="center"><img src="https://img.shields.io/badge/-Critical-DC143C?style=flat-square" alt="Critical" /></td>
-<td align="center">🔴 <strong>Critical</strong></td>
+<td align="center"><img src="https://img.shields.io/badge/-●-DC143C?style=flat-square" alt="Critical" /> <strong>Critical</strong></td>
 </tr>
 <tr>
 <td align="center"><strong>DEF‑002</strong></td>
 <td>Disabled Users Can Issue Vouchers</td>
 <td align="center"><img src="https://img.shields.io/badge/-High-FF4500?style=flat-square" alt="High" /></td>
 <td align="center"><img src="https://img.shields.io/badge/-Critical-DC143C?style=flat-square" alt="Critical" /></td>
-<td align="center">🔴 <strong>Critical</strong></td>
+<td align="center"><img src="https://img.shields.io/badge/-●-DC143C?style=flat-square" alt="Critical" /> <strong>Critical</strong></td>
 </tr>
 <tr>
 <td align="center"><strong>DEF‑003</strong></td>
 <td>No Transaction Atomicity</td>
 <td align="center"><img src="https://img.shields.io/badge/-Medium-FFA500?style=flat-square" alt="Medium" /></td>
 <td align="center"><img src="https://img.shields.io/badge/-Critical-DC143C?style=flat-square" alt="Critical" /></td>
-<td align="center">🔴 <strong>Critical</strong></td>
+<td align="center"><img src="https://img.shields.io/badge/-●-DC143C?style=flat-square" alt="Critical" /> <strong>Critical</strong></td>
 </tr>
 <tr>
 <td align="center"><strong>DEF‑004</strong></td>
 <td>FLOAT for Financial Values</td>
 <td align="center"><img src="https://img.shields.io/badge/-High-FF4500?style=flat-square" alt="High" /></td>
 <td align="center"><img src="https://img.shields.io/badge/-High-FF8C00?style=flat-square" alt="High" /></td>
-<td align="center">🟠 <strong>High</strong></td>
+<td align="center"><img src="https://img.shields.io/badge/-●-FF8C00?style=flat-square" alt="High" /> <strong>High</strong></td>
 </tr>
 <tr>
 <td align="center"><strong>DEF‑005</strong></td>
 <td>No Duplicate Reference Guard</td>
 <td align="center"><img src="https://img.shields.io/badge/-High-FF4500?style=flat-square" alt="High" /></td>
 <td align="center"><img src="https://img.shields.io/badge/-High-FF8C00?style=flat-square" alt="High" /></td>
-<td align="center">🟠 <strong>High</strong></td>
+<td align="center"><img src="https://img.shields.io/badge/-●-FF8C00?style=flat-square" alt="High" /> <strong>High</strong></td>
 </tr>
 <tr>
 <td align="center"><strong>DEF‑006</strong></td>
 <td>Hardcoded Credentials in Source</td>
 <td align="center"><img src="https://img.shields.io/badge/-Medium-FFA500?style=flat-square" alt="Medium" /></td>
 <td align="center"><img src="https://img.shields.io/badge/-Medium-FFD700?style=flat-square" alt="Medium" /></td>
-<td align="center">🟡 <strong>Medium</strong></td>
+<td align="center"><img src="https://img.shields.io/badge/-●-FFD700?style=flat-square" alt="Medium" /> <strong>Medium</strong></td>
 </tr>
 </tbody>
 </table>
@@ -985,7 +985,7 @@ WHERE ProcessingStatus = 'Processing'
  K  ────────┼──────────┼──────────┼──────────┼──────────┤
  E  Low     │          │          │          │          │
  L  ────────┴──────────┴──────────┴──────────┴──────────┘
- I           ✅ Accept    🟡 Monitor  🟠 Mitigate  🔴 Urgent
+ I           [OK] Accept    [!!] Monitor  [!!!] Mitigate  [!!!!] Urgent
  H
  O
  O
@@ -994,12 +994,12 @@ WHERE ProcessingStatus = 'Processing'
 
 ---
 
-## 📎 Appendix
+## <img src="https://img.shields.io/badge/-Appendix-6A5ACD?style=flat-square&logo=files&logoColor=white" alt="Appendix" /> Appendix
 
 ### A. Full Impact Maps (All 6 Defects)
 
 <details>
-<summary>🔴 DEF‑001: No Balance Validation</summary>
+<summary><img src="https://img.shields.io/badge/-●-DC143C?style=flat-square" alt="Critical" /> DEF‑001: No Balance Validation</summary>
 
 ```
 No balance check in stored procedure
@@ -1011,7 +1011,7 @@ No balance check in stored procedure
 </details>
 
 <details>
-<summary>🔴 DEF‑002: No User Status Check</summary>
+<summary><img src="https://img.shields.io/badge/-●-DC143C?style=flat-square" alt="Critical" /> DEF‑002: No User Status Check</summary>
 
 ```
 ServiceStatus column never queried during voucher issuance
@@ -1023,7 +1023,7 @@ ServiceStatus column never queried during voucher issuance
 </details>
 
 <details>
-<summary>🔴 DEF‑003: No Transaction Atomicity</summary>
+<summary><img src="https://img.shields.io/badge/-●-DC143C?style=flat-square" alt="Critical" /> DEF‑003: No Transaction Atomicity</summary>
 
 ```
 Three write operations without BEGIN TRANSACTION / ROLLBACK
@@ -1035,7 +1035,7 @@ Three write operations without BEGIN TRANSACTION / ROLLBACK
 </details>
 
 <details>
-<summary>🟠 DEF‑004: FLOAT for Financial Values</summary>
+<summary><img src="https://img.shields.io/badge/-●-FF8C00?style=flat-square" alt="High" /> DEF‑004: FLOAT for Financial Values</summary>
 
 ```
 FLOAT used for Balance, FaceValue, and Amount columns
@@ -1047,7 +1047,7 @@ FLOAT used for Balance, FaceValue, and Amount columns
 </details>
 
 <details>
-<summary>🟠 DEF‑005: No Duplicate Reference Guard</summary>
+<summary><img src="https://img.shields.io/badge/-●-FF8C00?style=flat-square" alt="High" /> DEF‑005: No Duplicate Reference Guard</summary>
 
 ```
 ExternalReference has no UNIQUE constraint
@@ -1059,7 +1059,7 @@ ExternalReference has no UNIQUE constraint
 </details>
 
 <details>
-<summary>🟡 DEF‑006: Hardcoded Credentials</summary>
+<summary><img src="https://img.shields.io/badge/-●-FFD700?style=flat-square" alt="Medium" /> DEF‑006: Hardcoded Credentials</summary>
 
 ```
 SA password embedded as fallback in server.js
