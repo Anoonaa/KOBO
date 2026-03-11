@@ -12,6 +12,9 @@ app.use(express.json());
 app.use(cors());
 
 // ─── Configuration ───────────────────────────────────────────────────
+// NOTE: The fallback JWT_SECRET is for local/educational use only.
+//       In a production environment, always provide a strong secret via
+//       the JWT_SECRET environment variable and fail if it is missing.
 const JWT_SECRET = process.env.JWT_SECRET || 'kobo-fintech-secret-2024';
 const JWT_EXPIRY = '24h';
 

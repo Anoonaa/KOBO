@@ -30,6 +30,9 @@ CREATE TABLE ServiceProviders (
 );
 
 -- Users (enhanced with Role, Email, PasswordHash for JWT auth)
+-- NOTE: The default PasswordHash below is a bcrypt hash of 'Password123'.
+--       It is used ONLY for seeding test/demo data.  Never use a hardcoded
+--       hash in a production system.
 CREATE TABLE Users (
     UserID INT PRIMARY KEY IDENTITY(1,1),
     MSISDN NVARCHAR(20) NOT NULL,
