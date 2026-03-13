@@ -1,5 +1,5 @@
 -- =============================================
--- RUN THIS FIRST (before Kobo.sql)
+-- RUN THIS FIRST (before LewisRetail.sql)
 -- Connect to your local SQL Server via the
 -- VS Code SQL Server extension (Windows Auth)
 -- and execute this script against the master db.
@@ -31,4 +31,4 @@ PRINT '  STEP 2 - Restart SQL Server:';
 PRINT '    Open Start Menu → search "Services"';
 PRINT '    Find "SQL Server (MSSQLSERVER)" → Right-click → Restart';
 PRINT '';
-PRINT '  STEP 3 - Run Kobo.sql to create the LewisRetail database';
+PRINT '  STEP 3 - Run LewisRetail.sql to create the LewisRetail database';

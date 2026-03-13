@@ -67,7 +67,7 @@ In this guide you will install the project dependencies, start the Lewis Retail 
 > **Troubleshooting** - If you see a connection error mentioning SQL Server, verify that:
 > - SQL Server is running (check Windows Services)
 > - TCP/IP is enabled (see Guide 1, Part C)
-> - You ran `Setup.sql` and `Kobo.sql` successfully
+> - You ran `Setup.sql` and `LewisRetail.sql` successfully
 
 ---
 

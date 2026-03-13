@@ -81,7 +81,7 @@ The API connects to SQL Server over TCP/IP, which is disabled by default. You mu
 ## Part D - Create the LewisRetail Database
 
 1. Return to **Visual Studio Code**.
-2. In the file explorer (left sidebar), navigate to the `Database` folder and **double-click** on `Kobo.sql` to open it.
+2. In the file explorer (left sidebar), navigate to the `Database` folder and **double-click** on `LewisRetail.sql` to open it.
 3. Before running, confirm you are connected to the **master** database. Check the status bar at the bottom of VS Code. The script will create the LewisRetail database and switch to it automatically.
 4. **Right-click** anywhere inside the editor area.
 5. **Left-click** **Execute Query**.
@@ -171,7 +171,7 @@ Use this checklist to confirm you have completed all parts of this guide:
 - [ ] `Setup.sql` executed successfully against the master database
 - [ ] TCP/IP enabled in SQL Server Configuration Manager
 - [ ] SQL Server service restarted
-- [ ] `Kobo.sql` executed successfully
+- [ ] `LewisRetail.sql` executed successfully
 - [ ] All 11 tables verified
 - [ ] 55 users confirmed
 - [ ] 5,200+ orders confirmed

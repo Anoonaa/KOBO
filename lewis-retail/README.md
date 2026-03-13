@@ -38,7 +38,7 @@ lewis-retail/
 │   └── package.json            # Dependencies
 ├── Database/                   # SQL Server scripts
 │   ├── Setup.sql               # SQL Auth configuration (run first)
-│   ├── Kobo.sql                # Lewis Retail schema & seed data
+│   ├── LewisRetail.sql          # Lewis Retail schema & seed data
 │   └── sql-queries/            # Your Task 3 audit queries go here
 ├── Automation/                 # Your Task 2 Postman collection
 ├── Guides/                     # Setup and exercise guides
@@ -61,7 +61,7 @@ lewis-retail/
 # 1. Connect to localhost using Windows Authentication
 # 2. Execute Database/Setup.sql against master database
 # 3. Enable TCP/IP and restart SQL Server
-# 4. Execute Database/Kobo.sql to create LewisRetail database
+# 4. Execute Database/LewisRetail.sql to create LewisRetail database
 ```
 
 See [Guide 1 — Database Setup](Guides/Guide1-DatabaseSetup.md) for detailed instructions.
@@ -151,7 +151,7 @@ Identify and document 10 critical flaws with JIRA lifecycle tracking.
 Push the following to the GitHub `main` branch by the deadline:
 
 1. `/API` — Core retail service code
-2. `/Database` — Kobo.sql and the `/sql-queries` folder with 50+ queries
+2. `/Database` — LewisRetail.sql and the `/sql-queries` folder with 50+ queries
 3. `/Automation` — Master Postman Collection JSON (v2.1)
 4. `CONTRIBUTIONS.md` — Team work-log, JIRA screenshots, and defect register
 

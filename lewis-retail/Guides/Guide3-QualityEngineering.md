@@ -241,7 +241,7 @@ ORDER BY TimesOrdered ASC;
 
 ### 4.1 - Stored Procedure Review
 
-Open `Database/Kobo.sql` and locate the `usp_ProcessSale` stored procedure near the bottom of the file. Read through it carefully and answer the following questions.
+Open `Database/LewisRetail.sql` and locate the `usp_ProcessSale` stored procedure near the bottom of the file. Read through it carefully and answer the following questions.
 
 **Questions to consider:**
 
