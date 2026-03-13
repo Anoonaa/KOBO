@@ -1,7 +1,7 @@
 -- =============================================================================
 --  LEWIS RETAIL — Store & Order Management Gateway
 --  Expanded schema with Customer-tier logic, Pricing Rules, Credit Accounts,
---  RBAC-ready Users, 5 200+ orders, and intentional data-quality
+--  RBAC-ready Users, 5,200+ orders, and intentional data-quality
 --  defects for Quality Engineering exercises.
 -- =============================================================================
 
@@ -437,7 +437,7 @@ INSERT INTO PricingRules (ProductID, CustomerTier, DiscountPercentage, BulkQuant
 VALUES (2, 'Standard', 3.00, 2, 1.50, 1);
 
 -- =============================================================================
---  SEED DATA — 5 200 Orders
+--  SEED DATA — 5,200 Orders
 --  Generates a mix of statuses, references, and amounts.
 --  Intentional defects are woven in (see comments below).
 -- =============================================================================
@@ -614,7 +614,7 @@ GO
 --  CreditAccounts:30  (3 Expired, 2 Frozen, 5 zero-limit, 2 negative balance)
 --  Products:      15  (across 5 departments)
 --  PricingRules:  46  (3 tiers × 15 products + 1 duplicate)
---  Orders:        5 200  (with ~400 ghost entries, duplicates, mixed statuses)
+--  Orders:        5,200  (with ~400 ghost entries, duplicates, mixed statuses)
 --  Inventory:     15  (with negative and zero stock intentional defects)
 --  VAT Rates:      4  (including 1 duplicate Standard rate)
 --
